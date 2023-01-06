@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.animation.TypeEvaluator
 import android.graphics.Interpolator
+import android.graphics.PointF
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -21,10 +22,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-        setContentView(R.layout.activity_animate) // 动画测试
-
-        findView()
+        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_animate) // 动画测试
+//        findView()
 
 //        testAnimate1() // ViewPropertyAnimator，不能对自定义属性
 //        testAnimate2() // ObjectAnimator，不能对多个属性
@@ -33,7 +33,8 @@ class MainActivity : AppCompatActivity() {
 //        testAnimate5() // Keyframe 更细
 
 //        testAnimate6() // Interpolator 插值器
-        testAnimate7() // TypeEvaluator 估值器
+//        testAnimate7() // TypeEvaluator 估值器
+//        testAnimate8() // TypeEvaluator
 
     }
 
@@ -113,10 +114,22 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    private fun testAnimate7() { // ImageView
-        // 
-        // TODO: 2023/1/4 mingKE  
-        
+    private fun testAnimate7() { // PointFView
+        // 由动画完成度 计算出对应的属性的值
+        // TypeEvaluator 的计算模式很简单，就是 初始值+完成度*（最终值-初始值）
+
+        val animator = ObjectAnimator.ofObject(view, "point", PointFEvaluator(), PointF(300f, 800f))
+        animator.duration = 2000
+        animator.startDelay = 1000
+        animator.start()
     }
+
+    private fun testAnimate8() { // ProvinceView
+        val animator = ObjectAnimator.ofObject(view, "province", ProvinceEvaluator(), "回家")
+        animator.duration = 2000
+        animator.startDelay = 1000
+        animator.start()
+    }
+
 
 }

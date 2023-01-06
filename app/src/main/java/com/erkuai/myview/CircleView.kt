@@ -26,5 +26,6 @@ class CircleView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
         super.onDraw(canvas)
 
         canvas.drawCircle(width / 2f, height / 2f, radius, mPaint)
+
     }
 }
