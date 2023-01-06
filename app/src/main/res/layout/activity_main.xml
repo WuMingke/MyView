@@ -6,14 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.erkuai.myview.MaterialEditText
-        android:id="@+id/met"
+    <com.erkuai.myview.TagLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="tips"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:useFloatingLabel="true" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.erkuai.myview.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11" />
+
+        <com.erkuai.myview.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="22" />
+
+        <com.erkuai.myview.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="33" />
+
+        <com.erkuai.myview.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="44" />
+
+        <com.erkuai.myview.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="55" />
+
+        <com.erkuai.myview.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="66" />
+
+        <com.erkuai.myview.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="777" />
+    </com.erkuai.myview.TagLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
