@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import com.erkuai.dp
 
 class MaterialEditText(context: Context, attrs: AttributeSet?) : AppCompatEditText(context, attrs) {
 

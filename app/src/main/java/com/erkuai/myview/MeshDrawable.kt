@@ -3,6 +3,7 @@ package com.erkuai.myview
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import androidx.core.graphics.toColorInt
+import com.erkuai.dp
 
 /**
  * Drawable的自定义

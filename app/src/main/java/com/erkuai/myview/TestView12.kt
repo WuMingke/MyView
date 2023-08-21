@@ -7,6 +7,8 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.graphics.withSave
+import com.erkuai.dp
+import com.erkuai.getAvatar
 
 /**
  * 属性动画

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import com.erkuai.dp
 
 /**
  * 测试 Xfermode
