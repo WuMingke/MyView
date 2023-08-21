@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.View
+import com.erkuai.dp
 
 /**
  * 测试 TypeEvaluator

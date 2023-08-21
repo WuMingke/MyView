@@ -8,6 +8,8 @@ import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import com.erkuai.dp
+import com.erkuai.getAvatar
 
 /**
  * 圆形头像

@@ -1,4 +1,4 @@
-package com.erkuai
+package com.erkuai.myview
 
 import kotlin.properties.ReadOnlyProperty
 import kotlin.properties.ReadWriteProperty

@@ -11,9 +11,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.children
+import com.erkuai.dp
 import java.util.Random
 import kotlin.math.max
-import kotlin.math.min
 
 /**
  * 自定义布局 的类型

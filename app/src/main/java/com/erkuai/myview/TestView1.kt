@@ -7,6 +7,7 @@ import android.graphics.Path
 import android.graphics.PathMeasure
 import android.util.AttributeSet
 import android.view.View
+import com.erkuai.dp
 
 class TestView1(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 

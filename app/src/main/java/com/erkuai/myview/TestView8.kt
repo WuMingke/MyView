@@ -4,12 +4,12 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Paint.FontMetrics
-import android.text.Layout
-import android.text.PrecomputedText
 import android.text.StaticLayout
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
+import com.erkuai.dp
+import com.erkuai.getAvatar
 
 /**
  * 多行绘制

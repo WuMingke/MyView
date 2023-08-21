@@ -4,10 +4,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
-import android.graphics.Typeface
-import android.graphics.fonts.Font
 import android.util.AttributeSet
 import android.view.View
+import com.erkuai.dp
 
 /**
  * 文字贴边

@@ -6,6 +6,8 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
+import com.erkuai.dp
+import com.erkuai.getAvatar
 
 /**
  * 裁切
