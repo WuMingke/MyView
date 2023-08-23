@@ -77,7 +77,28 @@ ObjectAnimator，继承自 ValueAnimator
             当且仅当只给动画设置一个值时，程序才会调用属性对应的get函数来得到动画的初始值。
             这里如果没有 Point(0, 0) 会报错
 
-路径动画
+在Java中有一个Math类，输入参数是 弧度值
+double sin(double a)
+double cos(double a)
+double tan(double a)
+且 角度到弧度的api
+double toRadians(double angdeg)
 
+所以，22度对应的正弦值是 Math.sin(Math.toRadians(22))
 
+4
+PropertyValuesHolder => 保存了动画过程中所需要操作的属性和对应的值
+Keyframe => 关键帧，定义每一帧在哪一个进度展示
+ViewPropertyAnimator => 便捷的属性动画  view.animate().alpha(xx)
+    相比较ObjectAnimator，ViewPropertyAnimator并没有像ObjectAnimator一样使用反射或者JNI技术，而ViewPropertyAnimator
+    会根据预设的每一个动画帧计算出对应的所有属性，并设置给控件，然后调用一次invalidate()函数进行重绘，从而解决了在使用ObjectAnimator
+    时每个属性单独计算，单独重绘的问题，所以ViewPropertyAnimator相对于ObjectAnimator和组合动画，性能有所提升
 
+为ViewGroup内的子View添加动画
+1 layoutAnimation   针对listView的item入场动画，新添加不会有效果
+2 gridLayoutAnimation   针对gridView的item入场动画，新添加不会有效果
+3 android:animateLayoutChanges属性    针对所有ViewGroup的子View添加或删除，动画不能自定义
+4 LayoutTransition  针对所有ViewGroup的子View添加或删除，动画可以自定义
+
+5
+路径动画，依赖于 PathMeasure

@@ -1,11 +1,17 @@
 package com.erkuai.book
 
+import android.animation.Keyframe
+import android.animation.LayoutTransition
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.graphics.Point
 import android.os.Bundle
 import android.view.View
+import android.view.ViewPropertyAnimator
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.erkuai.book.chapter3.FallingBallEvaluator
@@ -16,6 +22,7 @@ import com.erkuai.myview.R
 
 class BookActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,12 +35,49 @@ class BookActivity : AppCompatActivity() {
 //            }
 //        }
 
-        setContentView(R.layout.object_animator)
-        findViewById<FallingBallImageView>(R.id.iv).apply {
-            setOnClickListener {
-                testObjectAnimator(it)
-            }
+//        setContentView(R.layout.object_animator)
+//        findViewById<FallingBallImageView>(R.id.iv).apply {
+//            setOnClickListener {
+//                testObjectAnimator(it)
+//            }
+//        }
+
+        setContentView(R.layout.view_group_item_animation)
+//        val container = findViewById<LinearLayout>(R.id.container)
+//        var i = 0
+//        findViewById<Button>(R.id.add).setOnClickListener {
+//            i++
+//            val btn = Button(this)
+//            btn.text = "btn $i"
+//            container.addView(btn)
+//        }
+//        findViewById<Button>(R.id.remove).setOnClickListener {
+//            if (i > 0) {
+//                container.removeViewAt(0)
+//            }
+//            i--
+//        }
+        val container2 = findViewById<LinearLayout>(R.id.container2)
+        val layoutTransition = LayoutTransition()
+        val animatorIn = ObjectAnimator.ofFloat(null, "rotationY", 0f, 360f, 0f)
+        layoutTransition.setAnimator(LayoutTransition.APPEARING, animatorIn)
+        val animatorOut = ObjectAnimator.ofFloat(null, "rotation", 0f, 90f, 0f)
+        layoutTransition.setAnimator(LayoutTransition.DISAPPEARING, animatorOut)
+        container2.layoutTransition = layoutTransition
+        var i = 0
+        findViewById<Button>(R.id.add).setOnClickListener {
+            i++
+            val btn = Button(this)
+            btn.text = "btn $i"
+            container2.addView(btn)
         }
+        findViewById<Button>(R.id.remove).setOnClickListener {
+            if (i > 0) {
+                container2.removeViewAt(0)
+            }
+            i--
+        }
+
     }
 
     private fun testObjectAnimator(view: View) {
