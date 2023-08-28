@@ -86,6 +86,10 @@ double toRadians(double angdeg)
 
 所以，22度对应的正弦值是 Math.sin(Math.toRadians(22))
 
+反正切，并弧度转角度
+val degrees = Math.toDegrees(atan2(tan[1].toDouble(), tan[0].toDouble()))
+
+
 4
 PropertyValuesHolder => 保存了动画过程中所需要操作的属性和对应的值
 Keyframe => 关键帧，定义每一帧在哪一个进度展示
@@ -102,3 +106,47 @@ ViewPropertyAnimator => 便捷的属性动画  view.animate().alpha(xx)
 
 5
 路径动画，依赖于 PathMeasure
+用 ValueAnimator 动画产生 0-1 的进度，使用 PathMeasure 得到path的长度，进度*长度 = 动画 --》PathMeasureView
+getLength()
+nextContour() // 跳转到下一条曲线
+public boolean getSegment(float startD, float stopD, Path dst, boolean startWithMoveTo)
+public boolean getPosTan(float distance, float pos[], float tan[])
+public boolean getMatrix(float distance, Matrix matrix, int flags) // 根据 flags 获取对应的 matrix 值
+
+6
+硬件加速
+    控制硬件加速4个层级
+    Application         android:hardwareAccelerated="false"
+    Activity            android:hardwareAccelerated="false"
+    Window                   window?.setFlags(
+                                    WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                                    WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
+                                )
+    View                1、setLayerType(LAYER_TYPE_SOFTWARE, null)
+                        2、android:layerType="software"
+
+7
+贝塞尔曲线
+path.moveTo(sx,sy) // 到起始点
+path.quadTo(cx,cy,ex,ey) // 二阶贝塞尔曲线，控制点、终点
+
+setShadowLayer(float radius, float dx, float dy, long shadowColor) // 设置阴影效果，
+    这个只能实现产生一张新图片，然后再对周围阴影
+使用的是高斯模糊算法：对于正在处理的每一个像素，取周围若干个像素的RGB值并且平均，这个平均值就是模糊处理过的像素。
+如果对图片中的所有像素都这么处理，那么处理完成的图片就会变得模糊。其中，所取周围像素的半径就是模糊半径。所以，
+模糊半径越大，所得平均像素与原始像素差别就越大，也就越模糊。
+
+TextView:
+android:shadowDx="5"
+android:shadowDy="5"
+android:shadowRadius="5"
+
+setMaskFilter(MaskFilter maskfilter) // 设置发光效果
+        BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
+
+给图片添加纯色阴影
+    1 bitmap.extractAlpha() // 对图片产生一张只包含相同透明度的图片
+    2 setMaskFilter 使其内外发光
+    2 偏移绘制这个图片
+
+8

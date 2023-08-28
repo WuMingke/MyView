@@ -14,7 +14,7 @@
             android:text="一段文字一段文字一段文字一段文字一段文字一段文字"
             android:textColor="@color/black" />-->
 
-    <com.erkuai.myview.ScaleableImageView
+    <com.erkuai.myview.MultiTouchView1
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
