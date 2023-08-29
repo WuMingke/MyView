@@ -65,6 +65,30 @@ TestView8 多行绘制
         对属性动画自带的属性(translation、rotation等)，再调用 .withLayer() ,
         在动画过程中开启一个离屏缓冲，让动画在渲染的时候更快，动画结束后自动关闭
 
+    层级：
+
+    透明图层（源图像）         drawBitmap：拿什么应用给Xfermode
+    透明画布（目标图像）       调用saveLayer产生的画布
+    原始画布                  原始画布
+
+    每次调用canvas.drawXXX函数时，都会生成一个透明的图层来专门绘制这个图形，每次生成的这个都会叠加到
+    最近的画布上，
+
+    图层和画布：
+    图层（Layer）：每次调用canvas.drawXXX函数，都会生成一个透明图层专门来绘制这个图形
+    画布（Bitmap）：每块画布都是一个Bitmap，所有的图像都是画在这个Bitmap上的。在图层上绘制完成以后，
+                就覆盖到画布上。如果连续调用5次drawXXX函数，就会生成5个透明图层，画完之后依次覆盖在画布上显示，
+                这里就有了上下的关系。画布有两种，一种是View的原始画布，通过重写的onDraw函数传入，另一种是通过
+                savaLayer、new Canvas()等函数新建的，savaLayer之后，所有的draw函数所画的图像都是画在这块画布上的，
+                直到调用restore、restoreToCount函数之后，才会返回到原始画布上绘制。
+    Canvas：Canvas是画布的表现形式，无论是原始画布还是new的画布，所有的画布最后都通过Canvas会知道Bitmap上，
+                可以把Canvas理解成绘图的工具，利用它封装的绘图函数来绘图。所以如果利用canvas.clipXXX()将
+                画布进行裁剪，其实就是把对应的Bitmap进行裁剪。
+
+
+
+
+
 Bitmap和Drawable
     TestView13
 

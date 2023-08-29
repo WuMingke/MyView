@@ -150,3 +150,22 @@ setMaskFilter(MaskFilter maskfilter) // 设置发光效果
     2 偏移绘制这个图片
 
 8
+混合模式Xfermode
+    在setXfermode之前的图像是目标图像，即给谁应用Xfermode
+    在setXfermode之后的是源图像，即拿什么应用Xfermode
+
+9
+Canvas与图层
+    在绘制View的时候，重写onDraw
+    在绘制ViewGroup的时候，重写dispatchDraw，当它有背景的时候，才会走onDraw
+
+获取Canvas对象的方法
+    1 重写onDraw、dispatchDraw
+    2 通过bitmap创建      private var canvas = Canvas(bitmap)
+    3 SurfaceHolder.lockCanvas()
+
+10
+Drawable和Bitmap
+自定义的Drawable的使用场景很明确
+    1 使用在可以设置Drawable的函数中，如setImageDrawable
+    2 代替Bitmap用于View中

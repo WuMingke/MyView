@@ -82,7 +82,9 @@ class BookActivity : AppCompatActivity() {
 
 //        setContentView(R.layout.chapter_5)
 //        setContentView(R.layout.chapter_6)
-        setContentView(R.layout.chapter_7)
+//        setContentView(R.layout.chapter_7)
+//        setContentView(R.layout.chapter_8)
+        setContentView(R.layout.chapter_9)
 
     }
 
