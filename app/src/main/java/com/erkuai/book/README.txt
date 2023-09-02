@@ -162,10 +162,114 @@ Canvas与图层
 获取Canvas对象的方法
     1 重写onDraw、dispatchDraw
     2 通过bitmap创建      private var canvas = Canvas(bitmap)
-    3 SurfaceHolder.lockCanvas()
+    3 SurfaceHolder.lockCanvas() // SurfaceView的双缓冲机制
 
 10
+shape标签对应的是 GradientDrawable
+
 Drawable和Bitmap
 自定义的Drawable的使用场景很明确
     1 使用在可以设置Drawable的函数中，如setImageDrawable
     2 代替Bitmap用于View中
+
+Bitmap是Drawable，但是Drawable不一定是Bitmap
+Bitmap在内存占用和绘制速度上不如Drawable有优势
+Bitmap绘图方便，而Drawable调用paint方便，但调用Canvas并不方便
+Drawable有一些子类，可以方便地完成一些绘图功能，比如ShapeDrawable、GradientDrawable
+
+Bitmap Drawable 自定义View 使用场景：
+1 Bitmap只在一种情况下使用，就是在View中需要自己生成图像时。绘图后的结果保存在这个Bitmap中，
+    供自定义View使用。
+2 当使用Drawable的子类能完成一些固有功能时，优先选用Drawable
+3 当使用setImageDrawable 等可以直接设置Drawable资源的函数时，只能用Drawable
+4 除Bitmap Drawable以外的地方，都可以使用自定义View
+
+Bitmap在绘图中主要的两种使用场景：
+1 转换为BitmapDrawable
+        val bitmap: Bitmap = BitmapFactory.decodeResource(res, R.drawable.avatar)
+        val bitmapDrawable: BitmapDrawable = BitmapDrawable(res, bitmap)
+2 作为画布
+        val bitmap: Bitmap = ...
+        val canvas: Canvas = Canvas(bitmap)
+        canvas.drawXXX
+
+一张位图所占内存 = 长度(px) * 宽度(px) * 一个像素点占用的字节数
+ALPHA_8          8-1个字节
+ARGB_4444 4+4+4+4=16-2个字节
+ARGB_8888 8+8+8+8=32-4个字节
+RGB_565   5+6+5=16-2个字节
+而从资源文件中加载的话，还要考虑分辨率的对应关系。缩放比例 = 屏幕分辨率/文件夹所对应的分辨率
+从sd卡中加载的话，不进行缩放。
+
+
+
+fun getAvatar(resources: Resources, width: Int): Bitmap {
+    val options = BitmapFactory.Options()
+    options.inJustDecodeBounds = true
+    BitmapFactory.decodeResource(resources, R.drawable.avatar, options)
+    options.inJustDecodeBounds = false
+    options.inDensity = options.outWidth
+    options.inTargetDensity = width
+    return BitmapFactory.decodeResource(resources, R.drawable.avatar, options)
+}
+
+inJustDecodeBounds  表示只解析图片信息(inJustDecodeBounds = true)，这样可以不将图片加载到内存中，得到图片宽高
+inSampleSize    采样率。指每隔多少个样本采样一次作为结果。
+                比如设置为4，那么就是每隔4个像素取一个，其余的丢弃，那么宽高就变为原来的1/4
+                采样率的设置要使缩放后的图片尺寸尽量大于等于相应的ImageView的大小。
+inScaled    在需要缩放的时候，是否缩放，默认true
+inDensity   设置文件所在资源文件夹的屏幕分辨率
+inTargetDensity     表示真实显示的屏幕分辨率
+所以上面的 缩放比例 = 屏幕分辨率/文件夹所对应的分辨率
+就等于 scale = inTargetDensity / inDensity
+所以这两个参数的作用就是：可以通过手动设置文件所在资源文件夹的分辨率和真实显示的屏幕分辨率来指定图片的缩放比例
+
+
+SurfaceView
+    在两个方面改进了View的绘图操作
+    1 使用双缓冲技术。就是多加一块缓冲画布，当需要执行绘图操作时，先在缓冲画布上绘制，绘制好后直接将缓冲画布上的内容
+        更新到主画布上。这样在屏幕更新时，只需把缓冲画布上的内容照样画过来就可以了，就不会存在逻辑处理时间的问题，也就解决
+        了超时绘制的问题。
+    2 自带画布，可以在子线程中更新画布内容。
+
+当界面被动更新时，比如手势交互，使用View
+当界面是主动更新时，或者频繁刷新，或者刷新的处理量比较大时，比如视频、摄像头，使用SurfaceView
+
+SurfaceView是一个mvc的结构
+Surface：model
+SurfaceView：view
+SurfaceHolder：controller
+
+val lockCanvas = holder.lockCanvas()
+// 绘制
+holder.unlockCanvasAndPost(lockCanvas)
+双缓冲技术需要两个图形缓冲区，一个是前端缓冲区，一个是后端缓冲区。前端缓冲区对应当前屏幕正在显示的内容，
+后端缓冲区是接下来要渲染的图形缓冲区。通过holder.lockCanvas()获得的是后端缓冲区。当绘图完成以后，
+调用holder.unlockCanvasAndPost(lockCanvas)将后端缓冲区与前端缓冲区交换，后端变成前端，前端变成后端，
+等待下一次lockCanvas()，如此往复。
+
+MeasureSpec.UNSPECIFIED // 子元素可以得到任意想要的大小
+MeasureSpec.EXACTLY // match_parent 、 具体值
+MeasureSpec.AT_MOST // 至多 wrap_content
+
+val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+val measureWidth = MeasureSpec.getSize(widthMeasureSpec) // 测量的宽
+// 如果是模式是用户设置的，那么不应该取修改，如果是wrap_content，那么就需要控件去计算大小
+val width = if (widthMode == MeasureSpec.EXACTLY) {
+    measureWidth
+} else {
+    10 // 计算的宽
+}
+setMeasuredDimension(width, width)
+
+getMeasuredWidth(): 在measure()过程结束后可以取到值，它的值是通过setMeasuredDimension()确定的
+getWidth():在layout()结束后可以取到值，它的值是通过layout确定的
+
+
+
+
+
+
+
+
+

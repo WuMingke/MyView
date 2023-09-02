@@ -8,6 +8,7 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.graphics.Point
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewPropertyAnimator
 import android.view.WindowManager
@@ -84,7 +85,10 @@ class BookActivity : AppCompatActivity() {
 //        setContentView(R.layout.chapter_6)
 //        setContentView(R.layout.chapter_7)
 //        setContentView(R.layout.chapter_8)
-        setContentView(R.layout.chapter_9)
+//        setContentView(R.layout.chapter_9)
+        setContentView(R.layout.chapter_10)
+        val bg = findViewById<TextView>(R.id.tv10).background
+        Log.i("wmkwmk", "bg-class: ${bg.javaClass}")
 
     }
 

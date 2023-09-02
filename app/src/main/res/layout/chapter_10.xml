@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv10"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:background="@drawable/tv_10_bg"
+        android:gravity="center"
+        android:text="123" />
+
+    <com.erkuai.book.chapter10.ShapeView
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <com.erkuai.book.chapter10.CustomSurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+</LinearLayout>
