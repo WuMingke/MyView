@@ -7,8 +7,14 @@ import android.animation.PropertyValuesHolder
 import android.graphics.PointF
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.TextView
 import com.erkuai.dp
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
+//        setContentView(R.layout.activity_test)
 //        setContentView(R.layout.activity_main)
 //        setContentView(R.layout.activity_animate) // 动画测试
 //        findView()
@@ -31,6 +37,19 @@ class MainActivity : AppCompatActivity() {
 //        testAnimate7() // TypeEvaluator 估值器
 //        testAnimate8() // TypeEvaluator
 
+        // View绘制源码解析：👇
+        setContentView(R.layout.activity_draw)
+        val tv = findViewById<TextView>(R.id.tv)
+        tv.requestLayout()
+        thread {
+            tv.text = "world"
+        }
+
+        thread {
+            val btn = Button(this)
+            windowManager.addView(btn, WindowManager.LayoutParams())
+        }
+        /// 👆
     }
 
     private fun findView() {

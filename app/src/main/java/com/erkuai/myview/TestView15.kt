@@ -37,7 +37,7 @@ class TestView15(context: Context?, attrs: AttributeSet?) : View(context, attrs)
 class SquareImageView(context: Context, attrs: AttributeSet?) : AppCompatImageView(context, attrs) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec) // 父View测量
         val measuredWidth = measuredWidth
         val measuredHeight = measuredHeight
         val size = if (measuredWidth < measuredHeight) {
@@ -70,7 +70,7 @@ class CircleView2(context: Context?, attrs: AttributeSet?) : View(context, attrs
     private val mRadius = 100.dp
     private val mPadding = 100.dp
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) { // 这两个参数是父View的要求
 //        super.onMeasure(widthMeasureSpec, heightMeasureSpec) // 父View的测量 就不要了
         val size = ((mPadding + mRadius) * 2).toInt()
 
