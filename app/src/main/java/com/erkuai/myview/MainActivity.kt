@@ -38,18 +38,20 @@ class MainActivity : AppCompatActivity() {
 //        testAnimate8() // TypeEvaluator
 
         // View绘制源码解析：👇
-        setContentView(R.layout.activity_draw)
-        val tv = findViewById<TextView>(R.id.tv)
-        tv.requestLayout()
-        thread {
-            tv.text = "world"
-        }
-
-        thread {
-            val btn = Button(this)
-            windowManager.addView(btn, WindowManager.LayoutParams())
-        }
+//        setContentView(R.layout.activity_draw)
+//        val tv = findViewById<TextView>(R.id.tv)
+//        tv.requestLayout()
+//        thread {
+//            tv.text = "world"
+//        }
+//
+//        thread {
+//            val btn = Button(this)
+//            windowManager.addView(btn, WindowManager.LayoutParams())
+//        }
         /// 👆
+
+        setContentView(R.layout.activity_measure)
     }
 
     private fun findView() {

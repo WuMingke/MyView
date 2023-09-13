@@ -25,6 +25,12 @@ import kotlin.math.max
  *      eg：TagLayout
  */
 class TestView15(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        /// super.onMeasure(widthMeasureSpec, heightMeasureSpec) 是用来让父视图对当前视图进行测量的
+        /// 这个调用是用来确保当前视图在父视图的测量过程中被正确处理。
+    }
 }
 
 /**
